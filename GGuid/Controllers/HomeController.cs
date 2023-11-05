@@ -100,7 +100,7 @@ namespace GGuid.Controllers
             if (item is null)
                 return NotFound();
 
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.FindByIdAsync(item.OwnerId.ToString());
 
             ViewBag.OwnerName = user.UserName;
             ViewBag.OwnerImage = user.ProfileImagePath;
