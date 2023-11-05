@@ -1,0 +1,229 @@
+﻿@model IQueryable<Event>
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        .body {
+            background-color: black;
+        }
+
+        .my-badge-data {
+            position: absolute;
+            display: flex;
+            top: 10%;
+            width: 100%;
+            z-index: 1000;
+            justify-content: space-between;
+        }
+
+        .card {
+            margin: 20px;
+            border-radius: 20px;
+            height: 100%;
+            border: 3px solid green;
+        }
+
+        .my-badge-right {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            padding: 1px;
+            padding-left: 5px;
+        }
+
+        .my-badge-left {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            padding: 1px;
+            padding-right: 5px;
+        }
+
+        .my-badge-empty {
+            flex-grow: 1;
+        }
+
+        .bg-color-1 {
+            background-color: white;
+        }
+
+        .bg-color-2 {
+            background-color: orange;
+        }
+
+        .text-color-1 {
+            color: white;
+        }
+
+        .text-color-2 {
+            color: black;
+        }
+
+        .my-card-img {
+            border-radius: 20px;
+        }
+
+        .my-card-overlap {
+            position: absolute;
+            border-radius: 17px;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .my-card-description {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            padding-left: 5px;
+        }
+
+        .my-card-tags {
+            display: flex;
+            position: absolute;
+            bottom: 10px;
+            margin-left: 10px;
+        }
+
+        .my-tag {
+            margin-left: 5px;
+        }
+
+            .my-tag::before {
+                content: "#";
+            }
+
+        h5 {
+            font-weight: 700;
+        }
+
+        .my-filter-datetime {
+            color: black;
+        }
+
+            .my-filter-datetime.select {
+                color: white;
+            }
+
+        .btn-color-3 {
+            background-color: #2C304E;
+            color: white;
+        }
+    </style>
+    <title>Document</title>
+    <link rel="stylesheet" href="~/css/main.css" />
+    @await Html.PartialAsync("IndexCssPartial")
+</head>
+
+<body style="background-color: black;">
+    @await Html.PartialAsync("HeaderPartial")
+    <div style="height: 100px;">
+
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="row d-flex justify-content-center align-content-center w-100 ">
+                    <form method="post" asp-controller="@nameof(HomeController).CutController()" asp-action="@nameof(HomeController.EventList)" class="w-100 d-flex justify-content-center align-items-center" style="max-width: 700px;">
+                        <div class="container d-flex row justify-content-center ">
+                            <div class="btn-group d-flex mt-3 " role="group" aria-label="Basic checkbox toggle button group">
+                                <input type="radio" class="btn-check" name="date" value="today" id="btncheck1" autocomplete="off">
+                                <label class="btn btn-outline-dark my-filter-datetime" for="btncheck1" style="color: white; background-color: #2C304E;">Сегодня</label>
+
+                                <input type="radio" class="btn-check" name="date" value="tomorrow" id="btncheck2" autocomplete="off">
+                                <label class="btn btn-outline-dark my-filter-datetime" for="btncheck2" style="color: white; background-color: #2C304E;">Завтра</label>
+
+                                <input type="radio" class="btn-check" name="date" value="coming" id="btncheck3" autocomplete="off">
+                                <label class="btn btn-outline-dark my-filter-datetime" for="btncheck3" style="color: white; background-color: #2C304E;">Ближайшее</label>
+                            </div>
+                            <div class="row">
+                                <div class="mt-3 mb-3 ">
+                                    <label style="color: white;">Имя</label>
+                                    <input type="text" name="searchText" id="" class="form-control" placeholder="Название"
+                                           aria-describedby="helpId">
+                                </div>
+                            </div>
+                            <div class="row">
+                                .<div class="row">
+                                    <div class="mt-3 mb-3 ">
+                                        <label style="color: white;">Радису</label>
+                                        <input type="text" name="radius" style="width: 300px;" id="" class="form-control" placeholder="Радиус"
+                                               aria-describedby="helpId">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row d-flex ms-1 me-1 ">
+                                <label for="" class="row mb-2" style="color: white;">Тип мероприятия</label>
+                                <div class="form-check form-check-inline col">
+                                    <input class="form-check-input" type="radio" name="format" id="" value="online">
+                                    <label class="form-check-label" for="" style="color: white;">Онлайн</label>
+                                </div>
+                                <div class="form-check form-check-inline col">
+                                    <input class="form-check-input" type="radio" name="format" id="" value="offline">
+                                    <label class="form-check-label" for="" style="color: white;">Оффлайн</label>
+                                </div>
+                                <div class="form-check form-check-inline col">
+                                    <input class="form-check-input" type="radio" name="format" id="" value="both" checked>
+                                    <label class="form-check-label" for="" style="color: white;">Оба</label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-color-3 row w-100 mt-3 mb-2 ">Найти</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="row mb-5">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-4 mt-5">
+                            <div class="card position-relative">
+                                <div class="my-badge-data">
+                                    <span class="my-badge-left bg-color-1">
+                                        @item.StartTime
+                                    </span>
+                                    <span class="my-badge-empty"></span>
+                                    <span class="my-badge-right bg-color-2">
+                                        @item.Format
+                                    </span>
+                                </div>
+                                <div class="my-card-overlap text-color-1">
+                                    <h2 class="my-card-description">
+                                        @item.Name
+                                    </h2>
+                                    <div class="my-card-tags text-color-1">
+                                        @if (item.Skills is not null)
+                                        {
+                                            @foreach (var skill in item.Skills)
+                                            {
+                                                <span class="my-tag">skill</span>
+                                            }
+                                        }
+                                    </div>
+
+                                    <a asp-controller="@nameof(HomeController).CutController()" asp-action="@nameof(HomeController.EventDetails)" asp-route-id="@item.Id" name="" id="" class="btn text-white" style="background-color: #00923B;" role="button">Учавствовать</a>
+                                </div>
+                                
+                                <a class="w-100 h-100 " >
+                                    <img alt="" class="w-100 h-100   my-card-img"
+                                         src="@item.PreviewImgPath">
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("FooterPartial")
+</body>
+
+</html>

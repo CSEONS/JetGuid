@@ -1,0 +1,46 @@
+﻿@model Event
+
+<div style="height: 100px;">
+</div>
+<div class="vw-100 d-flex row justify-content-center">
+    <div class="row rounded-bottom-circle w-100"
+         style="background: linear-gradient(45deg, black, #00923B); border-bottom-left-radius: 50px; border-bottom-right-radius: 50px;">
+        <main class="container-sm d-flex justify-content-between pt-5 pb-5 " style="max-width: 600px;">
+            <div class="col-8 text-white " style="font-weight: 900; font-size: 30px;">
+                @Model.Name
+            </div>
+            <div class="col-4 ms-3 position-relative">
+                <div class="row">
+                    <div class="col position-absolute text-white "
+                         style="top: 0px; left: 40px; background-color: rgba(100, 100, 100, 0.2); padding: 20px 20px; font-weight: 600; border-radius: 20px;">
+                        <span>@Model.StartTime</span>
+                    </div>
+                    <div class="col position-absolute text-white "
+                         style="top: 20px; left: 200px; background-color: rgba(100, 100, 100, 0.2); padding: 50px 20px; font-weight: 700; font-size: 30px; border-radius: 20px;">
+                        90 минут
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div class="row container-sm d-flex justify-content-center text-white ">
+            <a asp-controller="@nameof(HomeController).CutController" asp-action="@nameof(HomeController.JoinEvent)" asp-route-id="@Model.Id" name="" id="" class="btn text-white mb-4 "
+               style="background-color: #00923B; width: 200px; border-radius: 30px;"
+               role="button">Зарегестрировться</a>
+        </div>
+    </div>
+    <div class="div row d-flex justify-content-center align-items-center  mt-5 mb-5">
+        <img src="@ViewBag.OwnerImage" style="width: 300px; height: 300px;" alt="">
+        <div align="center" style="font-weight: 600; font-size: 40px;">Организатор</div>
+        <div class="diw" style="max-width: 800px; font-size: 20px; font-weight: 500;">
+            @ViewBag.OwnerName;
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center align-items-center pt-4 pb-4  " style="max-width: 800px;">
+        <div style="font-weight: 600; font-size: 20px;" class="text-dark">
+            О мероприятии
+        </div>
+        <div class="text text-dark">
+            @Model.Text
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿@model Event
+
+<style>
+
+    body {
+        background-color: rgba(0, 0, 0, 1);
+    }
+
+    .bg-color-1 {
+        background-color: #2C304E;
+    }
+
+    .text-color-1 {
+        color: white;
+    }
+</style>
+<main class="main container-md w-100 h-100 d-flex pt-5 pb-5">
+    <div class="container-md bg-color-1 d-flex justify-content-center align-items-center"
+         style="border-radius: 20px; margin-top: 50px;">
+        <form method="post" asp-controller="@nameof(HomeController).CutController()" asp-action="@nameof(HomeController.AddEvent)" enctype="multipart/form-data" class="w-75 ">
+            <input type="hidden" asp-for="@Model.Id" />
+            <input type="hidden" asp-for="@Model.Latude" />
+            <input type="hidden" asp-for="@Model.Longitude" />
+            <div class="form-group" style="width: 400px;">
+                <label for="Name" class="text-color-1">Превью</label>
+                <input type="file" class="form-control" id="Name" name="previewImage" style="
+    background-color: white;
+">
+            </div>
+            <div class="form-group" style="width: 400px;">
+                <label for="Name" class="text-color-1">Имя</label>
+                <input type="text" class="form-control" id="Name" name="@nameof(Model.Name)" style="
+    background-color: white;
+">
+            </div>
+            <div class="form-group">
+                <label for="Text" class="text-color-1">Описание</label>
+                <textarea style="display: block; width: 100%;" name="@nameof(Model.Text)" id="" cols="30" rows="10" style="
+    background-color: white;
+"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="StartTime" class="text-color-1">Дата</label>
+                <input type="datetime-local" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}" class="form-control"
+                       id="StartTime" name="@nameof(Model.StartTime)" style="
+    background-color: white;
+">
+            </div>
+            <div class="form-group">
+                <label for="Status" class="text-color-1">Формат</label>
+                <select class="form-control" id="Status" name="@nameof(@Model.Format)" style="
+    background-color: white;
+">
+                    <option value="0">Online</option>
+                    <option value="1">Offline</option>
+                    <!-- Добавьте другие опции, соответствующие значениям вашего Enum EventStatus -->
+                </select>
+            </div>
+            <div class="form-group d-flex justify-content-center pt-4 " style="margin-bottom: 20px;">
+                <button type="submit" class="btn btn-dark  align-ce w-100 ">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</main>

@@ -1,0 +1,91 @@
+﻿@model AppUser
+<div style="height: 100px;">
+
+</div>
+<div class="contaier-sm vw-100 row d-flex justify-content-between p-5" style="margin-top: 50px; background: linear-gradient(90deg, black, #00923B);">
+    <div class="col mw-100">
+        <div class="col">
+            <h5 class="text-white mb-3">@Model.UserName</h5>
+            @if (string.IsNullOrEmpty(Model.ProfileImagePath) is false)
+            {
+                <img src="@Model.ProfileImagePath" class="img-fluid" style="width: 300px;border-radius: 50%;height: 300px;object-fit: contain;" alt="">
+            }
+            else
+            {
+                <img src="~/images/profile.png" class="img-fluid" style="width: 300px;border-radius: 50%;height: 300px;object-fit: contain;" alt="">
+            }
+            <form asp-controller="@nameof(AccountController).CutController()" asp-action="@nameof(AccountController.ChangeName)" class="d-flex">
+                <div class="col">
+                    <div class="mt-5">
+                        <input type="text" name="changeName" id="" class="w-75" style="border-radius: 10px;padding: 7px;margin-bottom: 5px;" placeholder="Новое имя" aria-describedby="helpId">]
+                    </div>
+                    <input type="submit" class="border-0 rounded-3 p-2 text-white w-75" style="background-color: #00923B;" value="Изменить">
+                </div>
+            </form>
+            <form method="post" asp-controller="@nameof(AccountController).CutController()" asp-action="@nameof(AccountController.ChangeProfileImage)" class="d-flex" enctype="multipart/form-data">
+                <div class="col">
+                    <div class="mt-5">
+                        <input type="file" name="photo" id="" class="w-75" style="border-radius: 10px;padding: 7px;margin-bottom: 5px;" aria-describedby="helpId">]
+                    </div>
+                    <input type="submit" class="border-0 rounded-3 p-2 text-white w-75" style="background-color: #00923B;" value="Изменить">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col mw-100">
+        <div class="row mt-5 ">
+            <div name="" id="" class="btn text-white" style="background-color: #2C304E; cursor: default;" href="#" role="button">Посещено @Model.VisitCount</div>
+        </div>
+        <div class="row mt-2">
+            <div name="" id="" class="btn text-white" style="background-color: #2C304E; cursor: default;" href="#" role="button">Создано @Model.CreateEventCount</div>
+        </div>
+        <div class="row mt-2">
+            <a name="" id="my-btn" class="btn text-white" style="background-color: #00923B;" asp-controller="@nameof(HomeController).CutController()" asp-action="@nameof(HomeController.AddEvent)" role="button">Создать</a>
+        </div>
+    </div>
+    <div class="row">
+        @if (Model.Events is not null || Model?.Events?.Count > 0)
+        {
+            <h4 class="text-white mt-5 ">Ваши мероприятия</h4>
+            @foreach (var item in Model.Events ?? Enumerable.Empty<Event>())
+            {
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4 mt-3 ">
+                            <a class="card link-dark text-decoration-none " asp-controller="@nameof(HomeController).CutController()" asp-action="@nameof(HomeController.EventDetails)" asp-route-id="@Model.Id">
+                                <div class="card-body">
+                                    <h3 class="card-title">@item.Name</h3>
+                                    <p class="card-text overflow-hidden " style="height: 2em;">@item.Text.Take(20)</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @if (Model?.Events is not null || Model?.Events?.Count > 0)
+        {
+            <h4 class="text-white mt-5 ">Вы участвуете</h4>
+            @foreach (var item in Model.JoinEvents ?? Enumerable.Empty<Event>())
+            {
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4 mt-3 ">
+                            <a class="card link-dark text-decoration-none " asp-controller="@nameof(HomeController).CutController()" asp-action="@nameof(HomeController.EventDetails)" asp-route-id="@Model.Id">
+                                <div class="card-body">
+                                    <h3 class="card-title">@item.Name</h3>
+                                    <p class="card-text overflow-hidden " style="height: 2em;">@item.Text.Take(20)</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        <h4 class="text-white w-100" center>У вас пока нет мероприятий</h4>
+        <div style="height: 20px;">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+﻿<header style="z-index: 1000;">
+    <div class="container pt-2 pb-2">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a asp-controller="@nameof(HomeController).CutController()" asp-action="@nameof(HomeController.Index)" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                <img src="~/images/logo.svg">
+            </a>
+            <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                <li>
+                    <a asp-controller="@nameof(HomeController).CutController()" asp-action="@nameof(HomeController.Index)" class="nav-link text-white">
+                        Главная
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="@nameof(HomeController).CutController()" asp-action="@nameof(HomeController.EventList)" class="nav-link text-white">
+                        Мероприятия
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        О нас
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        Контакты
+                    </a>
+                </li>
+            </ul>
+            <div class="px-3 py-2 text-center">
+                <div class="container d-flex flex-wrap justify-content-center">
+                    <form method="post" asp-controller="@nameof(HomeController).CutController()" asp-action="@nameof(HomeController.EventList)">
+                        <div class="input-group">
+                            <div class="form-outline">
+                                <input name="searchText" id="search-focus" type="search" id="form1" class="form-control"
+                                       placeholder="Искать мероприятие" />
+                            </div>
+                            <button type="submit" class="btn">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            @if(User.Identity.IsAuthenticated)
+            {
+                <div class="login">
+                    <a name="" id="" class="btn" asp-controller="@nameof(HomeController).CutController()" asp-action="@nameof(HomeController.Profile)" role="button"><i class="bi bi-person"></i></a>
+                </div>
+                <div class="login">
+                    <a name="" id="" class="btn" asp-controller="@nameof(AccountController).CutController()" asp-action="@nameof(AccountController.LogOut)" role="button">Выйти</a>
+                </div>
+            }
+            else
+            {
+                <div class="login">
+                    <a name="" id="" class="btn" asp-controller="@nameof(AccountController).CutController()" asp-action="@nameof(AccountController.Login)" role="button">Войти</a>
+                </div>
+            }
+        </div>
+    </div>
+</header>

@@ -1,0 +1,77 @@
+﻿@model IQueryable<Event>
+
+<main>
+    <section class="s1" toBackgroundImage="~images/vkfest.png" style="position: relative;">
+        <img src="~/images/vkfest.png" style="position: absolute;max-width: 100%; object-fit: cover; z-index: -1;" />
+        <div class="container">
+            <div class="row">
+                <div class="col-12" id="title">
+                    Вот-вот завершится регистрация на<br>
+                    VK Fest Grozny.
+                </div>
+                <div class="col-12" id="desc">
+                    Развлекитесь со своими друзьями
+                </div>
+                <div class="col-12">
+                    <a name="" id="loginbut" class="btn btn-primary" href="#" role="button">
+                        Зарегистрироваться<i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="s2">
+        <div class="container">
+            <div class="row justify-content-around">
+                <div class="col" id="events">
+                    Мероприятия
+                </div>
+                <div class="col">
+                    <a name="" id="but-event" class="btn btn-primary" href="#" role="button">Все мероприятия</a>
+                </div>
+            </div>
+            <div class="row justify-content-around">
+                @if (Model is not null){
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-4" style="background-image: url('@Url.Content($"{item.PreviewImgPath}")')">
+                            <div class="top-flex">
+                                <div class="event-date">
+                                    @item.StartTime
+                                </div>
+                                <div class="format">@item.Format</div>
+                            </div>
+                            <div class="events-title">
+                                @item.Name
+                            </div>
+                            @foreach (var skill in item.Skills)
+                            {
+                                <div class="block-desc">
+                                    <i class="bi bi-check2"></i>@skill
+                                </div>
+                            }
+                            <a name="" id="login-event" class="btn btn-primary" href="#"
+                               role="button">Зарегистрироваться</a>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </section>
+    <section class="s3">
+        <div class="container">
+            <div class="row">
+                <div class="col"><img src="~/images/mail.png"></div>
+                <div class="col">
+                    <div class="s3-title">
+                        Остались вопросы?
+                    </div>
+                    <div class="s3-desc">
+                        - jetguide@gmail.com
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>

@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @await Html.PartialAsync("MetaPartial")
+    @await Html.PartialAsync("CssPartial")
+    @await Html.PartialAsync("IndexCssPartial")
+
+    @if (string.IsNullOrEmpty(ViewBag.Title))
+    {
+        <title>title</title>
+    }
+    else
+    {
+        <title>@ViewBag.Title</title>
+    }
+</head>
+<body class="bg-black">
+    @await Html.PartialAsync("HeaderPartial")
+    @RenderBody()
+    @await Html.PartialAsync("FooterPartial")
+    @await Html.PartialAsync("ScriptsPartial")
+</body>
+</html>
