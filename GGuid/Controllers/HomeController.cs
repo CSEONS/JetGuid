@@ -57,8 +57,6 @@ namespace GGuid.Controllers
                 models = models.Where(e => e.Name.Contains(filter.SearchText));
             }
 
-            models = models.Where(e => e.Format ==  filter.Format || filter.Format == "Both");
-
             return View(models);
         }
 
